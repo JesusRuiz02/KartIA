@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CheckManager : MonoBehaviour
 {
+    public Transform initialPosition;
      public List<GameObject> CheckPoints = new List<GameObject>();
     public int Nextindex = 0;
     private KartAgent _kartAgent;
@@ -18,7 +19,18 @@ public class CheckManager : MonoBehaviour
         Nextindex = 0;
         _kartAgent.changeTarget(CheckPoints[Nextindex]);
     }
-    
+
+    public void Respawn()
+    {
+        Debug.Log("hola");
+        transform.localPosition = new Vector3(0,-0.19f,0);
+    }
+
+    private void Start()
+    {
+     //   initialPosition.position = gameObject.transform.position;
+    }
+
     void Update()
     {
         if (timer <= max_time)
@@ -27,7 +39,6 @@ public class CheckManager : MonoBehaviour
         }
         else
         {
-            _kartAgent.EndEpisode();
             _kartAgent.SetReward(-1.0f);
            ResetEpisode();
         }
@@ -57,10 +68,10 @@ public class CheckManager : MonoBehaviour
                 _kartAgent.changeTarget(CheckPoints[Nextindex]);
                 _kartAgent.AddReward(0.7f);
             }
-            _kartAgent.EndEpisode();
             timer = 0;
         }
       
     }
-    
+
+   
 }

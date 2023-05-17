@@ -46,7 +46,7 @@ public class KartAgent : Agent
          var input = actions.ContinuousActions;
          
          
-         _kartController.ApplyAcceleration(input[1]);
+         //_kartController.ApplyAcceleration(input[1]);
          _kartController.Steer(input[0]);
          
     }
@@ -58,7 +58,7 @@ public class KartAgent : Agent
 
         action[0] = Input.GetAxis("Horizontal");
 
-        action[1] = Input.GetKey(KeyCode.W) ? 1f : 0f;
+        //action[1] = Input.GetKey(KeyCode.W) ? 1f : 0f;
 
     }
 

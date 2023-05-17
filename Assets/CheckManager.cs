@@ -45,10 +45,11 @@ public class CheckManager : MonoBehaviour
            ResetEpisode();
         }
 
-        if (transform.localPosition.y > -1)
+        if (transform.position.y <= 15)
         {
-            gameObject.transform.position = new Vector3(62.3f, 15.77f, 9.7f);
-            collider.transform.position = new Vector3(62.3f, 15.77f, 9.7f);
+            Debug.Log("xd");
+            gameObject.transform.position = new Vector3(62.3f, 16f, 9.7f);
+            collider.transform.position = new Vector3(62.3f, 16f, 9.7f);
             _kartAgent.EndEpisode();
         }
     }

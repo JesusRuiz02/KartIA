@@ -34,6 +34,11 @@ public class KartController : MonoBehaviour
       _checkManager = GetComponent<CheckManager>();
    }
 
+   private void Update()
+   {
+      ApplyAcceleration(1f);
+   }
+
    public void ApplyAcceleration(float input)
    {
       speed = acceleration * input;

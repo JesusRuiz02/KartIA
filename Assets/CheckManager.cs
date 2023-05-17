@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class CheckManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class CheckManager : MonoBehaviour
     private KartAgent _kartAgent;
     public float timer = 0;
     private float max_time = 30;
+    public GameObject collider;
+    
 
     private void Awake()
     {
@@ -20,11 +23,10 @@ public class CheckManager : MonoBehaviour
         _kartAgent.changeTarget(CheckPoints[Nextindex]);
     }
 
-    public void Respawn()
+    /*public void Respawn()
     {
-        Debug.Log("hola");
-        transform.localPosition = new Vector3(0,-0.19f,0);
-    }
+        
+    }*/
 
     private void Start()
     {
@@ -41,6 +43,13 @@ public class CheckManager : MonoBehaviour
         {
             _kartAgent.SetReward(-1.0f);
            ResetEpisode();
+        }
+
+        if (transform.localPosition.y > -1)
+        {
+            gameObject.transform.position = new Vector3(62.3f, 15.77f, 9.7f);
+            collider.transform.position = new Vector3(62.3f, 15.77f, 9.7f);
+            _kartAgent.EndEpisode();
         }
     }
 

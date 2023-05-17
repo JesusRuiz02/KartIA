@@ -26,7 +26,7 @@ public class KartAgent : Agent
     //Called each time it has timed-out or has reached the goal
     public override void OnEpisodeBegin()
     {
-        _checkpointManager.Respawn();
+        //_checkpointManager.Respawn();
        // _kartController.Respawn();
     }
     #region Edit this region!

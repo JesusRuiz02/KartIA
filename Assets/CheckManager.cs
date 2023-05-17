@@ -50,6 +50,8 @@ public class CheckManager : MonoBehaviour
             Debug.Log("xd");
             gameObject.transform.position = new Vector3(62.3f, 16f, 9.7f);
             collider.transform.position = new Vector3(62.3f, 16f, 9.7f);
+            Nextindex = 0;
+            _kartAgent.changeTarget(CheckPoints[Nextindex]);
             _kartAgent.EndEpisode();
         }
     }

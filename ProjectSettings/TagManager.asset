@@ -8,6 +8,10 @@ TagManager:
   - Target
   - Stair
   - Floor
+  - Wall2
+  - Target2
+  - Target3
+  - Target4
   layers:
   - Default
   - TransparentFX

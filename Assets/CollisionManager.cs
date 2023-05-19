@@ -7,6 +7,7 @@ using UnityEngine;
 public class CollisionManager : MonoBehaviour
 {
     private GameObject Parent;
+    public string tag = null;
     [CanBeNull] public KartAgent _kartAgent;
     public CheckManager checkManager;
     // Start is called before the first frame update
@@ -19,7 +20,7 @@ public class CollisionManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Target"))
+        if (other.CompareTag(tag))
         {
            checkManager.ChangeTarget(other);
         }

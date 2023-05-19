@@ -6,7 +6,9 @@ using UnityEngine.Animations;
 
 public class CheckManager : MonoBehaviour
 {
-    public Transform initialPosition;
+    private KartController _kartController;
+    public string tag = default;
+    public Vector3 initialPosition;
      public List<GameObject> CheckPoints = new List<GameObject>();
     public int Nextindex = 0;
     public int BestCheckPoint = 0;
@@ -14,12 +16,14 @@ public class CheckManager : MonoBehaviour
     public float timer = 0;
     private float max_time = 30;
     public GameObject collider;
-    
+
+
 
     private void Awake()
     {
+        _kartController = GetComponent<KartController>();
         _kartAgent = GetComponent<KartAgent>();
-        CheckPoints.AddRange(GameObject.FindGameObjectsWithTag("Target")); ;
+        CheckPoints.AddRange(GameObject.FindGameObjectsWithTag(tag)); ;
         Nextindex = 0;
         _kartAgent.changeTarget(CheckPoints[Nextindex]);
     }
@@ -46,10 +50,10 @@ public class CheckManager : MonoBehaviour
            ResetEpisode();
            collider.transform.rotation = new Quaternion(0,180,0,0);
            gameObject.transform.rotation = new Quaternion(0,180,0,0);
-           gameObject.transform.position = new Vector3(62.3f, 16f, 9.7f);
-           collider.transform.position = new Vector3(62.3f, 16f, 9.7f);
-           float reward = (-7.5f /(Nextindex+0.1f));
-           _kartAgent.SetReward(reward);
+           gameObject.transform.position = initialPosition;
+           collider.transform.position = initialPosition;
+           float reward = Nextindex == 0 ? 6/0.5f : 6f / Nextindex;
+           _kartAgent.SetReward(-reward);
            if (Nextindex > BestCheckPoint)
            {
                BestCheckPoint = Nextindex;
@@ -64,10 +68,10 @@ public class CheckManager : MonoBehaviour
             Debug.Log("xd");
             collider.transform.rotation = new Quaternion(0,180,0,0);
            gameObject.transform.rotation = new Quaternion(0,180,0,0);
-           gameObject.transform.position = new Vector3(62.3f, 16f, 9.7f);
-            collider.transform.position = new Vector3(62.3f, 16f, 9.7f);
-            float reward = (-7.5f /(Nextindex+0.1f));
-            _kartAgent.SetReward(reward);
+           gameObject.transform.position = initialPosition;
+           collider.transform.position = initialPosition;
+           float reward = Nextindex == 0 ? 6/0.5f : 6f / Nextindex;
+            _kartAgent.SetReward(-reward);
             if (Nextindex > BestCheckPoint)
             {
                 BestCheckPoint = Nextindex;
@@ -88,13 +92,22 @@ public class CheckManager : MonoBehaviour
 
     public void ChangeTarget(Collider other)
     {
-        if (other.CompareTag("Target") && other.gameObject == CheckPoints[Nextindex])
+        if (other.CompareTag(tag) && other.gameObject == CheckPoints[Nextindex])
         {
+            if (other.GetComponent<Curva>() == null)
+            {
+                _kartController.acceleration = 90;
+            }
+            else
+            {
+                _kartAgent.AddReward(0.5f);
+                _kartController.acceleration = 75;
+            }
             if (Nextindex < CheckPoints.Count)
             {
                 Nextindex++;
                 _kartAgent.changeTarget(CheckPoints[Nextindex]);
-                float reward = 0.55f * Nextindex;
+                float reward = 0.5f * Nextindex;
                 _kartAgent.AddReward(reward);
             }
             else
@@ -105,13 +118,13 @@ public class CheckManager : MonoBehaviour
             }
             timer = 0;
         }
-        else if(other.CompareTag("Target") && other.gameObject != CheckPoints[Nextindex])
+        else if(other.CompareTag(tag) && other.gameObject != CheckPoints[Nextindex])
         {
-            _kartAgent.AddReward(-0.1f);
+            _kartAgent.AddReward(-0.5f);
             collider.transform.rotation = new Quaternion(0,180,0,0);
             gameObject.transform.rotation = new Quaternion(0,180,0,0);
-            gameObject.transform.position = new Vector3(62.3f, 16f, 9.7f);
-            collider.transform.position = new Vector3(62.3f, 16f, 9.7f);
+            gameObject.transform.position = initialPosition;
+            collider.transform.position = initialPosition;
             Nextindex = 0;
             _kartAgent.changeTarget(CheckPoints[Nextindex]);
             _kartAgent.EndEpisode();

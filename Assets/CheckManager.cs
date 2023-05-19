@@ -52,7 +52,7 @@ public class CheckManager : MonoBehaviour
            gameObject.transform.rotation = new Quaternion(0,180,0,0);
            gameObject.transform.position = initialPosition;
            collider.transform.position = initialPosition;
-           float reward = Nextindex == 0 ? 6/0.5f : 6f / Nextindex;
+           float reward = Nextindex == 0 ? 8/0.5f : 8f / Nextindex;
            _kartAgent.SetReward(-reward);
            if (Nextindex > BestCheckPoint)
            {
@@ -70,7 +70,7 @@ public class CheckManager : MonoBehaviour
            gameObject.transform.rotation = new Quaternion(0,180,0,0);
            gameObject.transform.position = initialPosition;
            collider.transform.position = initialPosition;
-           float reward = Nextindex == 0 ? 6/0.5f : 6f / Nextindex;
+           float reward = Nextindex == 0 ? 8/0.5f : 8f / Nextindex;
             _kartAgent.SetReward(-reward);
             if (Nextindex > BestCheckPoint)
             {
@@ -96,12 +96,11 @@ public class CheckManager : MonoBehaviour
         {
             if (other.GetComponent<Curva>() == null)
             {
-                _kartController.acceleration = 90;
+                _kartController.acceleration = 78;
             }
             else
             {
                 _kartAgent.AddReward(0.5f);
-                _kartController.acceleration = 75;
             }
             if (Nextindex < CheckPoints.Count)
             {

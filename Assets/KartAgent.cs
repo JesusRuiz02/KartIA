@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class KartAgent : Agent
 {
+    public string tag = default; 
     public CheckManager _checkpointManager;
     private KartController _kartController;
     [SerializeField] private GameObject target = default;
@@ -64,7 +65,7 @@ public class KartAgent : Agent
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Target"))
+        if (other.CompareTag(tag))
         {
             Debug.Log(other);
             SetReward(0.05f);

@@ -96,11 +96,11 @@ public class CheckManager : MonoBehaviour
         {
             if (other.GetComponent<Curva>() == null)
             {
-                _kartController.acceleration = 74;
+                _kartController.acceleration = 75;
             }
             else
             {
-                _kartAgent.AddReward(0.2f);
+                _kartAgent.AddReward(0.25f);
             }
             if (Nextindex < CheckPoints.Count)
             {

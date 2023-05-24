@@ -40,29 +40,6 @@ public class CheckManager : MonoBehaviour
 
     void Update()
     {
-        if (timer <= max_time)
-        {
-            timer += Time.deltaTime;
-        }
-        else
-        {
-            _kartAgent.SetReward(-1.0f);
-           ResetEpisode();
-           collider.transform.rotation = new Quaternion(0,180,0,0);
-           gameObject.transform.rotation = new Quaternion(0,180,0,0);
-           gameObject.transform.position = initialPosition;
-           collider.transform.position = initialPosition;
-           float reward = Nextindex == 0 ? 11/0.1f : 11f / (Nextindex/7f);
-           _kartAgent.SetReward(-reward);
-           if (Nextindex > BestCheckPoint)
-           {
-               BestCheckPoint = Nextindex;
-           }
-           Nextindex = 0;
-           _kartAgent.changeTarget(CheckPoints[Nextindex]);
-           _kartAgent.EndEpisode();
-        }
-
         if (transform.position.y <= 15)
         {
             Debug.Log("xd");

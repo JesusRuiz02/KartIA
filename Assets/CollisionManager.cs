@@ -31,8 +31,8 @@ public class CollisionManager : MonoBehaviour
 
         if (other.CompareTag("Wall"))
         {
-            _kartAgent.SetReward(-0.1f);
-            _kartAgent.EndEpisode();
+            _kartAgent.SetReward(-1f);
+            checkManager.Respawn();
         }
     }
 }

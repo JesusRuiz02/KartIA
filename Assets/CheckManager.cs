@@ -73,7 +73,7 @@ public class CheckManager : MonoBehaviour
         {
             if (other.GetComponent<Curva>() == null)
             {
-                _kartController.acceleration = 75;
+                _kartController.acceleration = 70;
             }
             else
             {
@@ -83,7 +83,7 @@ public class CheckManager : MonoBehaviour
             {
                 Nextindex++;
                 _kartAgent.changeTarget(CheckPoints[Nextindex]);
-                float reward = 0.55f * Nextindex;
+                float reward = 0.65f * Nextindex;
                 _kartAgent.AddReward(reward);
             }
             else

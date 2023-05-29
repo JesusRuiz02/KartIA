@@ -13,6 +13,7 @@ public class CheckManager : MonoBehaviour
     public int Nextindex = 0;
     public int BestCheckPoint = 0;
     private KartAgent _kartAgent;
+    public CollisionManager collisionManager;
     public float timer = 0;
     private float max_time = 30;
     public GameObject collider;
@@ -30,7 +31,7 @@ public class CheckManager : MonoBehaviour
 
     public void Respawn()
     {
-        Debug.Log("xd");
+        collisionManager.hola = 0;
         collider.transform.rotation = new Quaternion(0,180,0,0);
         gameObject.transform.rotation = new Quaternion(0,180,0,0);
         gameObject.transform.position = initialPosition;
@@ -53,7 +54,7 @@ public class CheckManager : MonoBehaviour
     {
         if (transform.position.y <= 15)
         {
-            float reward = Nextindex == 0 ? 11/0.1f : 11f / (Nextindex/8f);
+            float reward = Nextindex == 0 ? 12/0.1f : 12f / (Nextindex/8f);
             _kartAgent.SetReward(-reward);
             Respawn();
         }
@@ -71,26 +72,27 @@ public class CheckManager : MonoBehaviour
     {
         if (other.CompareTag(tag) && other.gameObject == CheckPoints[Nextindex])
         {
+            collisionManager.hola = 0;
             if (other.GetComponent<Curva>() == null)
             {
-                _kartController.acceleration = 70;
+                _kartController.acceleration = 65;
             }
             else
             {
-                _kartAgent.AddReward(0.25f);
+                _kartAgent.AddReward(0.1f);
             }
-            if (Nextindex < CheckPoints.Count)
+            if (Nextindex < CheckPoints.Count-1)
             {
                 Nextindex++;
                 _kartAgent.changeTarget(CheckPoints[Nextindex]);
-                float reward = 0.65f * Nextindex;
+                float reward = 0.6f * Nextindex;
                 _kartAgent.AddReward(reward);
             }
             else
             {
                 Nextindex = 0;
                 _kartAgent.changeTarget(CheckPoints[Nextindex]);
-                _kartAgent.AddReward(4f);
+                _kartAgent.AddReward(10f);
             }
             timer = 0;
         }

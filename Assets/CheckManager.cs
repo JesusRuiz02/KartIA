@@ -75,7 +75,7 @@ public class CheckManager : MonoBehaviour
             collisionManager.hola = 0;
             if (other.GetComponent<Curva>() == null)
             {
-                _kartController.acceleration = 65;
+                _kartController.acceleration = 60;
             }
             else
             {

@@ -54,7 +54,7 @@ public class CheckManager : MonoBehaviour
     {
         if (transform.position.y <= 15)
         {
-            float reward = Nextindex == 0 ? 12/0.1f : 12f / (Nextindex/8f);
+            float reward = Nextindex == 0 ? 14/0.1f : 14f / (Nextindex/8f);
             _kartAgent.SetReward(-reward);
             Respawn();
         }
@@ -79,16 +79,16 @@ public class CheckManager : MonoBehaviour
             }
             else
             {
-                _kartAgent.AddReward(0.1f);
+                _kartAgent.AddReward(0.2f);
             }
-            if (Nextindex < CheckPoints.Count-1)
+            if (Nextindex < CheckPoints.Count)
             {
                 Nextindex++;
                 _kartAgent.changeTarget(CheckPoints[Nextindex]);
-                float reward = 0.6f * Nextindex;
+                float reward = 0.65f * Nextindex;
                 _kartAgent.AddReward(reward);
             }
-            else
+            if(Nextindex == CheckPoints.Count-1)
             {
                 Nextindex = 0;
                 _kartAgent.changeTarget(CheckPoints[Nextindex]);

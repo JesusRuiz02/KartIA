@@ -54,7 +54,7 @@ public class CheckManager : MonoBehaviour
     {
         if (transform.position.y <= 15)
         {
-            float reward = Nextindex == 0 ? 12/0.1f : 12f / (Nextindex/8f);
+            float reward = Nextindex == 0 ? 14/0.1f : 14f / (Nextindex/8f);
             _kartAgent.SetReward(-reward);
             Respawn();
         }
@@ -75,7 +75,7 @@ public class CheckManager : MonoBehaviour
             collisionManager.hola = 0;
             if (other.GetComponent<Curva>() == null)
             {
-                _kartController.acceleration = 65;
+                _kartController.acceleration = 60;
             }
             else
             {

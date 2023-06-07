@@ -10,7 +10,9 @@ public class CollisionManager : MonoBehaviour
     private GameObject Parent;
     public string tag = null;
     [CanBeNull] public KartAgent _kartAgent;
+
     public CheckManager checkManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,18 +25,47 @@ public class CollisionManager : MonoBehaviour
     {
         if (other.CompareTag(tag))
         {
-           checkManager.ChangeTarget(other);
-        }
-        if (other.CompareTag("Floor"))
-        {
-            _kartAgent.EndEpisode();
+            checkManager.ChangeTarget(other);
         }
         
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            _kartAgent.SetReward(-6f);
+        }
+    }
+
+    private void OnCollisionStay(Collision collisionInfo)
+    {
+        if (collisionInfo.gameObject.CompareTag("Wall"))
+        {
+            _kartAgent.SetReward(-0.2f);
+            hola++;
+            if (hola>200)
+            {
+                Debug.Log("se atoro");
+                _kartAgent.SetReward(-14f);
+                _kartAgent.EndEpisode();
+                checkManager.Respawn();
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            hola = 0;
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Wall"))
+     /*   if (other.CompareTag("Wall"))
         {
             _kartAgent.SetReward(-0.001f);
             hola++;
@@ -45,6 +76,6 @@ public class CollisionManager : MonoBehaviour
                 checkManager.Respawn();
             }
 
-        }
+        }*/
     }
 }

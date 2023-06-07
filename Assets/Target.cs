@@ -9,10 +9,10 @@ public class Target : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+     /*   if (other.CompareTag("Player"))
         {
             GameObject Parent = other.transform.parent.gameObject;
-            Parent.GetComponentInChildren<KartAgent>().AddReward(0.1f);
-        }
+           // Parent.GetComponentInChildren<KartAgent>().AddReward(0.1f);
+        }*/
     }
 }

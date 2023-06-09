@@ -11,6 +11,7 @@ public class KartAgent : Agent
     public string tag = default; 
     public CheckManager _checkpointManager;
     private KartController _kartController;
+    public Rigidbody rigidbody;
     [SerializeField] private GameObject target = default;
 
     public void changeTarget(GameObject index)
@@ -36,9 +37,23 @@ public class KartAgent : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         Vector3 diff = target.transform.position - transform.position;
+        
+         var speed = rigidbody.velocity.magnitude;
+
+         if (speed < 15)
+         {
+             AddReward(-0.05f);
+         }
+
+         if (speed > 25)
+         {
+             AddReward(0.01f);
+         }
+         
+        
         sensor.AddObservation(diff/20f);
         
-        AddReward(-0.001f);
+        AddReward(-0.01f);
     }
 
     //Processing the actions received

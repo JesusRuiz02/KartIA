@@ -80,14 +80,15 @@ public class CheckManager : MonoBehaviour
             }
             else
             {
-                _kartAgent.AddReward(0.2f);
+                _kartController.acceleration = 90;
+                _kartAgent.AddReward(0.1f);
             }
             
             if (Nextindex < CheckPoints.Count-1)
             {
                 Nextindex++;
                 _kartAgent.changeTarget(CheckPoints[Nextindex]);
-                float reward = 0.16f * Nextindex;
+                float reward = 0.25f * Nextindex;
                 _kartAgent.AddReward(reward);
             }
             else
@@ -95,7 +96,7 @@ public class CheckManager : MonoBehaviour
                 Debug.Log("dio una vuelta");
                 Nextindex = 0;
                 _kartAgent.changeTarget(CheckPoints[Nextindex]);
-                _kartAgent.AddReward(10f);
+                _kartAgent.AddReward(15f);
                 _kartAgent.EndEpisode();
             }
             timer = 0;
@@ -110,7 +111,7 @@ public class CheckManager : MonoBehaviour
             Nextindex = 0;
             _kartAgent.changeTarget(CheckPoints[Nextindex]);
             _kartAgent.EndEpisode();*/
-          float reward = Nextindex == 0 ? 22/0.1f : 22f / (Nextindex/8f);
+          float reward = Nextindex == 0 ? 25/0.1f : 25f / (Nextindex/8f);
           _kartAgent.SetReward(-reward);
           Debug.Log("se regreso");
           Respawn();

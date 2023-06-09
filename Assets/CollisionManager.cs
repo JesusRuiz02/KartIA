@@ -45,10 +45,10 @@ public class CollisionManager : MonoBehaviour
         {
             _kartAgent.SetReward(-0.2f);
             hola++;
-            if (hola>200)
+            if (hola>225)
             {
                 Debug.Log("se atoro");
-                _kartAgent.SetReward(-14f);
+                _kartAgent.SetReward(-16f);
                 _kartAgent.EndEpisode();
                 checkManager.Respawn();
             }

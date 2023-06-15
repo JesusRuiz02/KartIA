@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Animations;
 
@@ -32,31 +33,41 @@ public class CheckManager : MonoBehaviour
     public void Respawn()
     {
         collisionManager.hola = 0;
-        collider.transform.rotation = new Quaternion(0,180,0,0);
-        gameObject.transform.rotation = new Quaternion(0,180,0,0);
-        gameObject.transform.position = initialPosition;
-        Vector3 colliderposition = initialPosition + new Vector3(0,0.6f,0);
+        gameObject.transform.position = Nextindex == 0
+            ? CheckPoints[Nextindex].transform.position
+            : CheckPoints[Nextindex - 1].transform.position;
+        gameObject.transform.rotation = Nextindex == 0
+        ? CheckPoints[Nextindex].transform.rotation
+            : CheckPoints[Nextindex - 1].transform.rotation;
+        Vector3 colliderposition = gameObject.transform.position + new Vector3(0,0.6f,0);
         collider.transform.position = colliderposition;
         if (Nextindex > BestCheckPoint)
         {
             BestCheckPoint = Nextindex;
         }
-        Nextindex = 0;
         _kartAgent.changeTarget(CheckPoints[Nextindex]);
         _kartAgent.EndEpisode();
     }
 
     private void Start()
     {
-     //   initialPosition.position = gameObject.transform.position;
+        Debug.Log(CheckPoints.Count());
+        //   initialPosition.position = gameObject.transform.position;
     }
 
     void Update()
     {
         if (transform.position.y <= -4f)
         {
-            float reward = Nextindex == 0 ? 14/0.1f : 14f / (Nextindex/8f);
-            _kartAgent.SetReward(-reward);
+            float reward = Nextindex == 0 ? 20/0.1f : 20f / (Nextindex/8f);
+            _kartAgent.AddReward(-reward);
+            Respawn();
+        }
+
+        if (transform.transform.position.y > 18)
+        {
+            float reward = Nextindex == 0 ? 20/0.1f : 20f / (Nextindex/8f);
+            _kartAgent.AddReward(-reward);
             Respawn();
         }
     }
@@ -78,43 +89,46 @@ public class CheckManager : MonoBehaviour
             {
                 _kartController.acceleration = 100;
             }
-            else
+
+            if (Nextindex == CheckPoints.Count-1)
             {
-                _kartAgent.AddReward(0.2f);
+                Nextindex = 0;
+                Debug.Log("dio una vuelta");
+                _kartAgent.changeTarget(CheckPoints[Nextindex]);
+                _kartAgent.AddReward(1f);
+                _kartAgent.EndEpisode();
             }
-            
-            if (Nextindex < CheckPoints.Count-1)
+            else
             {
                 Nextindex++;
                 _kartAgent.changeTarget(CheckPoints[Nextindex]);
-                float reward = 0.16f * Nextindex;
+                float reward = 0.01f * Nextindex;
                 _kartAgent.AddReward(reward);
-            }
-            else
-            {
-                Debug.Log("dio una vuelta");
-                Nextindex = 0;
-                _kartAgent.changeTarget(CheckPoints[Nextindex]);
-                _kartAgent.AddReward(10f);
-                _kartAgent.EndEpisode();
             }
             timer = 0;
         }
-        else if(other.CompareTag(tag) && other.gameObject != CheckPoints[Nextindex])
+
+        var comparison = Nextindex < 2 ? 0 : Nextindex - 2;
+        if(other.CompareTag(tag) && other.gameObject != CheckPoints[Nextindex])
         {
-          /*  _kartAgent.AddReward(-0.45f);
-            collider.transform.rotation = new Quaternion(0,180,0,0);
-            gameObject.transform.rotation = new Quaternion(0,180,0,0);
-            gameObject.transform.position = initialPosition;
-            collider.transform.position = initialPosition;
-            Nextindex = 0;
-            _kartAgent.changeTarget(CheckPoints[Nextindex]);
-            _kartAgent.EndEpisode();*/
-          float reward = Nextindex == 0 ? 22/0.1f : 22f / (Nextindex/8f);
-          _kartAgent.SetReward(-reward);
-          Debug.Log("se regreso");
-          Respawn();
-        
+            if (comparison == 0)
+            {
+                
+            }
+            else
+            {
+                _kartAgent.AddReward(-15);
+                Debug.Log("se regreso");
+                Respawn();
+            }
+            /*  _kartAgent.AddReward(-0.45f);
+              collider.transform.rotation = new Quaternion(0,180,0,0);
+              gameObject.transform.rotation = new Quaternion(0,180,0,0);
+              gameObject.transform.position = initialPosition;
+              collider.transform.position = initialPosition;
+              Nextindex = 0;
+              _kartAgent.changeTarget(CheckPoints[Nextindex]);
+              _kartAgent.EndEpisode();*/
         }
     }
 

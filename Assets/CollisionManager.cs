@@ -8,6 +8,7 @@ public class CollisionManager : MonoBehaviour
 {
     public int hola;
     private GameObject Parent;
+    private Rigidbody _rigidbody;
     public string tag = null;
     [CanBeNull] public KartAgent _kartAgent;
 
@@ -16,6 +17,7 @@ public class CollisionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _rigidbody = GetComponent<Rigidbody>();
         Parent = gameObject.transform.parent.gameObject;
         checkManager = Parent.GetComponentInChildren<CheckManager>();
         _kartAgent = Parent.GetComponentInChildren<KartAgent>();
@@ -35,25 +37,33 @@ public class CollisionManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            _kartAgent.SetReward(-6f);
+            _kartAgent.AddReward(-4f);
+            checkManager.Respawn();
+            Debug.Log("choco");
         }
     }
 
-    private void OnCollisionStay(Collision collisionInfo)
+   /* private void OnCollisionStay(Collision collisionInfo)
     {
         if (collisionInfo.gameObject.CompareTag("Wall"))
         {
-            _kartAgent.SetReward(-0.2f);
-            hola++;
-            if (hola>200)
+            _kartAgent.AddReward(-0.1f);
+            /*if (_rigidbody.velocity.magnitude < 0.1f)
             {
-                Debug.Log("se atoro");
-                _kartAgent.SetReward(-14f);
-                _kartAgent.EndEpisode();
+                _kartAgent.AddReward(-4f);
+                Debug.Log("Se atoro");
                 checkManager.Respawn();
+                _kartAgent.EndEpisode();
             }
+             if (hola>250)
+              {
+                  Debug.Log("se atoro");
+                  _kartAgent.SetReward(-20f);
+                  _kartAgent.EndEpisode();
+                  checkManager.Respawn();
+              }
         }
-    }
+    }*/
 
     private void OnCollisionExit(Collision other)
     {

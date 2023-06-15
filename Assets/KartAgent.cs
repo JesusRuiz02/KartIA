@@ -11,6 +11,7 @@ public class KartAgent : Agent
     public string tag = default; 
     public CheckManager _checkpointManager;
     private KartController _kartController;
+    public Rigidbody rigidbody;
     [SerializeField] private GameObject target = default;
 
     public void changeTarget(GameObject index)
@@ -35,10 +36,16 @@ public class KartAgent : Agent
     //Collecting extra Information that isn't picked up by the RaycastSensors
     public override void CollectObservations(VectorSensor sensor)
     {
+        float speed = rigidbody.velocity.magnitude;
         Vector3 diff = target.transform.position - transform.position;
-        sensor.AddObservation(diff/20f);
-        
-        AddReward(-0.001f);
+        sensor.AddObservation(diff/5f);
+        int index = _checkpointManager.Nextindex;
+        if (speed > 5)
+        {
+            AddReward(-0.01f);
+        }
+
+        AddReward(-0.02f);
     }
 
     //Processing the actions received

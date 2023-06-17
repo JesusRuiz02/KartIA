@@ -16,9 +16,10 @@ public class CollisionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Parent = gameObject.transform.parent.gameObject;
+    /*    Parent = gameObject.transform.parent.gameObject;
         checkManager = Parent.GetComponentInChildren<CheckManager>();
-        _kartAgent = Parent.GetComponentInChildren<KartAgent>();
+        _kartAgent = Parent.GetComponentInChildren<KartAgent>();*/
+        Physics.IgnoreLayerCollision(3,3,true);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -11,7 +11,9 @@ public class KartAgent : Agent
     public string tag = default; 
     public CheckManager _checkpointManager;
     private KartController _kartController;
+    public CollisionManager _collisionManager;
     [SerializeField] private GameObject target = default;
+    public int stopInt = 0;
 
     public void changeTarget(GameObject index)
     {
@@ -36,8 +38,8 @@ public class KartAgent : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         Vector3 diff = target.transform.position - transform.position;
-        sensor.AddObservation(diff/20f);
-        
+        sensor.AddObservation(diff/10f);
+        stopInt = _collisionManager.hola;
         AddReward(-0.001f);
     }
 
@@ -49,6 +51,16 @@ public class KartAgent : Agent
          
          //_kartController.ApplyAcceleration(input[1]);
          _kartController.Steer(input[0]);
+         
+         if (stopInt>250)
+         {
+             Debug.Log("paso de 250");
+             _checkpointManager.Respawn();
+             _collisionManager.hola = 0;
+             AddReward(-10f);
+
+         }
+
          
     }
       
@@ -65,11 +77,11 @@ public class KartAgent : Agent
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(tag))
+      /*  if (other.CompareTag(tag))
         {
             Debug.Log(other);
             SetReward(0.05f);
-        }
+        }*/
     }
 
     #endregion

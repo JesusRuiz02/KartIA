@@ -31,7 +31,6 @@ public class CheckManager : MonoBehaviour
 
     public void Respawn()
     {
-        collisionManager.hola = 0;
         collider.transform.rotation = new Quaternion(0,180,0,0);
         gameObject.transform.rotation = new Quaternion(0,180,0,0);
         gameObject.transform.position = initialPosition;
@@ -73,10 +72,11 @@ public class CheckManager : MonoBehaviour
     {
         if (other.CompareTag(tag) && other.gameObject == CheckPoints[Nextindex])
         {
+            _kartAgent.stopInt = 0;
             collisionManager.hola = 0;
             if (other.GetComponent<Curva>() == null)
             {
-                _kartController.acceleration = 100;
+                _kartController.acceleration = 105;
             }
             else
             {
@@ -87,7 +87,7 @@ public class CheckManager : MonoBehaviour
             {
                 Nextindex++;
                 _kartAgent.changeTarget(CheckPoints[Nextindex]);
-                float reward = 0.16f * Nextindex;
+                float reward = 0.22f * Nextindex;
                 _kartAgent.AddReward(reward);
             }
             else
@@ -110,8 +110,8 @@ public class CheckManager : MonoBehaviour
             Nextindex = 0;
             _kartAgent.changeTarget(CheckPoints[Nextindex]);
             _kartAgent.EndEpisode();*/
-          float reward = Nextindex == 0 ? 22/0.1f : 22f / (Nextindex/8f);
-          _kartAgent.SetReward(-reward);
+          float reward = Nextindex == 0 ? 28/0.1f : 28f / (Nextindex/8f);
+          _kartAgent.AddReward(-reward);
           Debug.Log("se regreso");
           Respawn();
         

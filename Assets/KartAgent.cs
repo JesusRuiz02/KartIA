@@ -36,9 +36,9 @@ public class KartAgent : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         Vector3 diff = target.transform.position - transform.position;
-        sensor.AddObservation(diff/20f);
+        sensor.AddObservation(diff/10f);
         
-        AddReward(-0.001f);
+        AddReward(-0.01f);
     }
 
     //Processing the actions received
@@ -65,11 +65,11 @@ public class KartAgent : Agent
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(tag))
+      /*  if (other.CompareTag(tag))
         {
             Debug.Log(other);
             SetReward(0.05f);
-        }
+        }*/
     }
 
     #endregion

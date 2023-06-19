@@ -19,6 +19,7 @@ public class CollisionManager : MonoBehaviour
         Parent = gameObject.transform.parent.gameObject;
         checkManager = Parent.GetComponentInChildren<CheckManager>();
         _kartAgent = Parent.GetComponentInChildren<KartAgent>();
+        Physics.IgnoreLayerCollision(3,3,true);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,7 +36,7 @@ public class CollisionManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            _kartAgent.SetReward(-6f);
+            _kartAgent.AddReward(-5f);
         }
     }
 
@@ -43,12 +44,12 @@ public class CollisionManager : MonoBehaviour
     {
         if (collisionInfo.gameObject.CompareTag("Wall"))
         {
-            _kartAgent.SetReward(-0.2f);
+            _kartAgent.AddReward(-0.1f);
             hola++;
-            if (hola>200)
+            if (hola>300)
             {
                 Debug.Log("se atoro");
-                _kartAgent.SetReward(-14f);
+                _kartAgent.SetReward(-40f);
                 _kartAgent.EndEpisode();
                 checkManager.Respawn();
             }

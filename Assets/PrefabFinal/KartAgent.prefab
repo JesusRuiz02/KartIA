@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6407512315892830715}
   m_Layer: 3
   m_Name: KartAgent
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 6287231546558636800}
   m_Layer: 3
   m_Name: Normal
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 5085643697557706041}
   m_Layer: 3
   m_Name: Kart
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -384,6 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83621dbdeee37764fa8f427b9a981829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vuelta: 0
   tag: Target
   initialPosition: {x: -47.018845, y: 0.31, z: 73.26407}
   CheckPoints: []
@@ -656,7 +657,7 @@ GameObject:
   - component: {fileID: 9143876598300160713}
   m_Layer: 3
   m_Name: Parent
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -858,7 +859,7 @@ GameObject:
   - component: {fileID: 3018186837406472243}
   m_Layer: 3
   m_Name: Collider
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

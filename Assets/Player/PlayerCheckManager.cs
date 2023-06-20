@@ -1,29 +1,26 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Animations;
 using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
 
-
-public class CheckManager : MonoBehaviour
+public class PlayerCheckManager : MonoBehaviour
 {
     public int posicion = default;
-    public int vuelta = 0;
+    public TextMeshProUGUI vueltaText = default;
+    public TextMeshProUGUI PosicionText = default;
+    public int vuelta = 1;
     private KartController _kartController;
     public string tag = default;
     public Vector3 initialPosition;
      public List<GameObject> CheckPoints = new List<GameObject>();
     public int Nextindex = 0;
     public int BestCheckPoint = 0;
-    private KartAgent _kartAgent;
-    public CollisionManager collisionManager;
+    public PlayerCollision collisionManager;
     public float timer = 0;
     private float max_time = 30;
     public GameObject collider;
-    [SerializeField] private int SavedIndex = 0;
-    
+ [SerializeField] private int SavedIndex = 0;
     public int SAVEDINDEX => SavedIndex;
     
     public Vector3[] Spawns = default;
@@ -33,16 +30,13 @@ public class CheckManager : MonoBehaviour
     private void Awake()
     {
         _kartController = GetComponent<KartController>();
-        _kartAgent = GetComponent<KartAgent>();
         CheckPoints.AddRange(GameObject.FindGameObjectsWithTag(tag)); ;
         Nextindex = 0;
-        _kartAgent.changeTarget(CheckPoints[Nextindex]);
         Respawn();
     }
 
     public void Respawn()
     {
-        resetCount();
         int SpawnIndex = Random.Range(0, Spawns.Length-1);
         initialPosition = Spawns[SpawnIndex];
         if (Nextindex > BestCheckPoint)
@@ -50,13 +44,13 @@ public class CheckManager : MonoBehaviour
             BestCheckPoint = Nextindex;
         }
         Nextindex = 0;
+        resetCount();
         collisionManager.hola = 0;
         collider.transform.rotation = new Quaternion(0,180,0,0);
         gameObject.transform.rotation = new Quaternion(0,180,0,0);
         gameObject.transform.position = initialPosition;
         Vector3 colliderposition = initialPosition + new Vector3(0,0.6f,0);
         collider.transform.position = colliderposition;
-       _kartAgent.changeTarget(CheckPoints[Nextindex]);
     }
 
     private void Start()
@@ -68,12 +62,16 @@ public class CheckManager : MonoBehaviour
     {
         if (transform.position.y <= -4f)
         {
-            float reward = Nextindex == 0 ? 14/0.1f : 14f / (Nextindex/8f);
-            _kartAgent.SetReward(-reward);
             Respawn();
         }
     }
 
+    public void cambiarLugar(int lugar)
+    {
+        posicion = lugar;
+        PosicionText.text = lugar.ToString();
+    }
+    
     public void CheckReward()
     {
         timer = 0;
@@ -81,52 +79,40 @@ public class CheckManager : MonoBehaviour
         _kartAgent.changeTarget(CheckPoints[Nextindex]);
         _kartAgent.SetReward(-1.0f);*/
     }
-    public void cambiarLugar(int lugar)
-    {
-        posicion = lugar;
-    }
 
     public void ChangeTarget(Collider other)
     {
         if (other.CompareTag(tag) && other.gameObject == CheckPoints[Nextindex])
         {
             collisionManager.hola = 0;
-            if (other.GetComponent<Curva>() == null)
-            {
-                _kartController.acceleration = 105;
-            }
-            else
-            {
-                _kartAgent.AddReward(0.2f);
-            }
-            
             if (Nextindex < CheckPoints.Count-1)
             {
                 Nextindex++;
-                _kartAgent.changeTarget(CheckPoints[Nextindex]);
-                float reward = 0.3f * Nextindex;
-                _kartAgent.AddReward(reward);
             }
             else
             {
                 Debug.Log("dio una vuelta");
                 CambiarVuelta();
                 Nextindex = 0;
-                _kartAgent.changeTarget(CheckPoints[Nextindex]);
-                _kartAgent.AddReward(10f);
-                _kartAgent.EndEpisode();
             }
             timer = 0;
             SavedIndex++;
         }
         else if(other.CompareTag(tag) && other.gameObject != CheckPoints[Nextindex])
         {
-         
-          float reward = Nextindex == 0 ? 25/0.08f : 25f / (Nextindex/15f);
-          _kartAgent.SetReward(-reward);
+            
           Debug.Log("se regreso");
-           _kartAgent.EndEpisode();
-           Respawn();
+          Respawn();
+        }
+    }
+
+    public void CambiarVuelta()
+    {
+        vuelta++;
+        vueltaText.text = (vuelta+1) + " / 5 ";
+        if (vuelta+1 >= 5)
+        {
+            SceneManager.LoadScene("PonteAJalar");
         }
     }
 
@@ -134,15 +120,5 @@ public class CheckManager : MonoBehaviour
     {
         SavedIndex = vuelta * CheckPoints.Count;
     }
-    
-    public void CambiarVuelta()
-    {
-        vuelta++;
-        if (vuelta+1 >= 4)
-        {
-            SceneManager.LoadScene("PonteAJalar");
-        }
-    }
 
-   
 }

@@ -28,7 +28,6 @@ public class CollisionManager : MonoBehaviour
         {
             checkManager.ChangeTarget(other);
         }
-        
 
     }
 

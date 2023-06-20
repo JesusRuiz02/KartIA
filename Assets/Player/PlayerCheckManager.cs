@@ -60,7 +60,7 @@ public class PlayerCheckManager : MonoBehaviour
 
     void Update()
     {
-        if (transform.position.y <= -4f)
+        if (transform.position.y <= -20f)
         {
             Respawn();
         }

@@ -109,8 +109,8 @@ public class PlayerCheckManager : MonoBehaviour
     public void CambiarVuelta()
     {
         vuelta++;
-        vueltaText.text = (vuelta+1) + " / 5 ";
-        if (vuelta+1 >= 5)
+        vueltaText.text = (vuelta+1) + " / 4 ";
+        if (vuelta+1 >= 4)
         {
             SceneManager.LoadScene("PonteAJalar");
         }

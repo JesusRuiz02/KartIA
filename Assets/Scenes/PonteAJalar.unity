@@ -3377,7 +3377,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4731234180495849201, guid: da6359a6c2002b7438b601d0fcc62b4a, type: 3}
       propertyPath: acceleration
-      value: 80
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 6407512315892830715, guid: da6359a6c2002b7438b601d0fcc62b4a, type: 3}
       propertyPath: m_RootOrder
@@ -5260,7 +5260,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4731234180495849201, guid: da6359a6c2002b7438b601d0fcc62b4a, type: 3}
       propertyPath: acceleration
-      value: 80
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 6407512315892830715, guid: da6359a6c2002b7438b601d0fcc62b4a, type: 3}
       propertyPath: m_RootOrder
@@ -6039,7 +6039,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4731234180495849201, guid: da6359a6c2002b7438b601d0fcc62b4a, type: 3}
       propertyPath: acceleration
-      value: 80
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 6407512315892830715, guid: da6359a6c2002b7438b601d0fcc62b4a, type: 3}
       propertyPath: m_RootOrder
@@ -16167,7 +16167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4731234180495849201, guid: da6359a6c2002b7438b601d0fcc62b4a, type: 3}
       propertyPath: acceleration
-      value: 80
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 5700599517191347678, guid: da6359a6c2002b7438b601d0fcc62b4a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17153,7 +17153,7 @@ MonoBehaviour:
   kartNormal: {fileID: 1129956557}
   sphere: {fileID: 1129956556}
   pos: {x: 0, y: 0, z: 0}
-  acceleration: 80
+  acceleration: 75
   steering: 40
   gravity: 40
   layerMask:
@@ -18743,7 +18743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4731234180495849201, guid: da6359a6c2002b7438b601d0fcc62b4a, type: 3}
       propertyPath: acceleration
-      value: 80
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 5700599517191347678, guid: da6359a6c2002b7438b601d0fcc62b4a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19713,7 +19713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4731234180495849201, guid: da6359a6c2002b7438b601d0fcc62b4a, type: 3}
       propertyPath: acceleration
-      value: 80
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 6407512315892830715, guid: da6359a6c2002b7438b601d0fcc62b4a, type: 3}
       propertyPath: m_RootOrder
@@ -20069,7 +20069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4731234180495849201, guid: da6359a6c2002b7438b601d0fcc62b4a, type: 3}
       propertyPath: acceleration
-      value: 80
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 6407512315892830715, guid: da6359a6c2002b7438b601d0fcc62b4a, type: 3}
       propertyPath: m_RootOrder

@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/PonteAJalar.unity
+    guid: f4909661c80b81a45b8fdba3081742ed
   m_configObjects: {}

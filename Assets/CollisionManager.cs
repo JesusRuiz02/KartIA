@@ -48,7 +48,7 @@ public class CollisionManager : MonoBehaviour
             hola++;
             if (hola>300)
             {
-                Debug.Log("se atoro");
+                Debug.Log("se atoro" + gameObject);
                 _kartAgent.SetReward(-40f);
                 _kartAgent.EndEpisode();
                 checkManager.Respawn();
